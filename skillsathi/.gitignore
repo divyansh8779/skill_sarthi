@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.env
+backend/.env
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Docker
+docker-compose.override.yml
+**/pgdata
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
