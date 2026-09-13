@@ -1,13 +1,393 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="SkillSathi - Voice-first career and skill navigator" />
-    <title>SkillSathi</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Skill Sathi — AI-powered career guidance demo (frontend-only)" />
+  <title>Skill Sathi — Career Command Center</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-dark">
+  <!-- Top Navigation -->
+  <header class="topnav" id="topnav">
+    <div class="nav-left">
+      <button class="logo" aria-label="Skill Sathi home" id="logoBtn">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#22D3EE"/>
+              <stop offset="1" stop-color="#A3E635"/>
+            </linearGradient>
+          </defs>
+          <circle cx="12" cy="12" r="10" fill="url(#g1)" opacity="0.12"/>
+          <path d="M12 7l3 6-3 3-3-3 3-6z" fill="#22D3EE"/>
+          <circle cx="12" cy="12" r="1.2" fill="#FACC15"/>
+        </svg>
+        <span class="brand">Skill Sathi</span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#dashboard" class="nav-link">Dashboard</a>
+        <a href="#explore" class="nav-link" id="openExplore">Explore Careers</a>
+        <a href="#assessment" class="nav-link" id="openAssessment">Skill Assessment</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <button class="icon-btn" id="notifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i></button>
+      <div class="profile" tabindex="0" aria-label="User profile">
+        <div class="avatar" aria-hidden="true">A</div>
+        <div class="profile-info">
+          <div class="name">Aarav Sharma</div>
+          <div class="role">Aspiring Full-Stack Developer</div>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
+      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-mobile" id="closeMobile" aria-label="Close menu">&times;</button>
+    <a href="#dashboard" class="mobile-link">Dashboard</a>
+    <a href="#explore" class="mobile-link" id="mobileExplore">Explore Careers</a>
+    <a href="#assessment" class="mobile-link" id="mobileAssessment">Skill Assessment</a>
+    <a href="#roadmap" class="mobile-link">Roadmap</a>
+  </div>
+
+  <main class="container">
+    <!-- Hero Dashboard Section -->
+    <section id="dashboard" class="hero reveal">
+      <div class="hero-left">
+        <p class="greeting">Good evening, <strong>Aarav</strong> 👋</p>
+        <h1 class="hero-title">Your next skill could change your future.</h1>
+        <p class="hero-sub">Skill Sathi converts your interests and abilities into a clear career action plan — step by step, in your language.</p>
+        <div class="hero-cta">
+          <button class="btn primary" id="continueRoadmap">Continue Your Roadmap</button>
+          <button class="btn secondary" id="takeAssessment">Take Skill Assessment</button>
+        </div>
+        <div class="skill-nodes">
+          <span class="node">Python</span>
+          <span class="node">Problem Solving</span>
+          <span class="node">Communication</span>
+          <span class="node">React</span>
+        </div>
+      </div>
+
+      <div class="hero-right" aria-hidden="false">
+        <div class="readiness-card">
+          <div class="readiness-header">
+            <div class="title">Career Readiness</div>
+            <div class="subtitle">You are on the right track</div>
+          </div>
+          <div class="ring-wrap">
+            <svg class="progress-ring" width="220" height="220" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="rg" x1="0" x2="1">
+                  <stop offset="0" stop-color="#22D3EE"/>
+                  <stop offset="1" stop-color="#A3E635"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-bg" cx="60" cy="60" r="48" stroke="#0b1a24" stroke-width="12" fill="none"/>
+              <circle class="ring" cx="60" cy="60" r="48" stroke="url(#rg)" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="302" stroke-dashoffset="302"/>
+              <text x="60" y="62" text-anchor="middle" class="ring-text">72%</text>
+            </svg>
+            <div class="floating-labels">
+              <div class="fl label-1">Python</div>
+              <div class="fl label-2">Problem Solving</div>
+              <div class="fl label-3">Communication</div>
+              <div class="fl label-4">React</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Overview -->
+    <section class="metrics reveal" aria-label="Progress overview">
+      <div class="metric-card" data-accent="cyan" tabindex="0" aria-label="Career Readiness 72 percent">
+        <div class="metric-icon"><i class="fa-solid fa-compass"></i></div>
+        <div class="metric-body">
+          <div class="metric-title">Career Readiness</div>
+          <div class="metric-value">72% <span class="delta">+8% this month</span></div>
+          <div class="mini-progress"><div class="mini-fill" style="width:72%"></div></div>
+        </div>
+      </div>
+
+      <div class="metric-card" data-accent="green" tabindex="0" aria-label="Skills completed 12 of 20">
+        <div class="metric-icon"><i class="fa-solid fa-check-to-slot"></i></div>
+        <div class="metric-body">
+          <div class="metric-title">Skills Completed</div>
+          <div class="metric-value">12 / 20 <span class="delta">Keep learning</span></div>
+          <div class="mini-progress"><div class="mini-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="metric-card" data-accent="yellow" tabindex="0" aria-label="Learning streak 14 days">
+        <div class="metric-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="metric-body">
+          <div class="metric-title">Learning Streak</div>
+          <div class="metric-value">14 days <span class="delta">🔥</span></div>
+          <div class="mini-progress"><div class="mini-fill" style="width:70%"></div></div>
+        </div>
+      </div>
+
+      <div class="metric-card" data-accent="lime" tabindex="0" aria-label="Profile strength 86 percent">
+        <div class="metric-icon"><i class="fa-solid fa-user-check"></i></div>
+        <div class="metric-body">
+          <div class="metric-title">Profile Strength</div>
+          <div class="metric-value">86% <span class="delta">Almost complete</span></div>
+          <div class="mini-progress"><div class="mini-fill" style="width:86%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Match Section -->
+    <section id="explore" class="career-match reveal">
+      <h2 class="section-title">Career paths matched to you</h2>
+      <div class="career-grid">
+        <!-- Card 1 -->
+        <article class="career-card" data-score="92" tabindex="0">
+          <div class="card-top">
+            <div class="career-title">Full-Stack Developer</div>
+            <div class="match-meter" aria-hidden="true">
+              <svg viewBox="0 0 36 36" class="c-meter"><path class="c-bg" d="M18 2a16 16 0 1 0 0 32 16 16 0 1 0 0-32z"></path><path class="c-fill" d="M18 2a16 16 0 1 0 0 32 16 16 0 1 0 0-32z" style="stroke-dasharray: 92, 100;"></path></svg>
+              <div class="score">92%</div>
+            </div>
+          </div>
+          <div class="skills">JavaScript • React • Node.js</div>
+          <div class="salary">High-growth field</div>
+          <div class="card-actions">
+            <button class="btn small" data-action="view-roadmap">View Roadmap</button>
+            <button class="expand" aria-expanded="false" aria-label="Expand details">Details <i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+          <div class="card-details" hidden>
+            <p>Full-stack developers build both frontend and backend systems. Recommended first steps: strengthen JavaScript fundamentals, build a React project, learn REST APIs.</p>
+            <div class="tag-list"><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Node.js</span></div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="career-card" data-score="84" tabindex="0">
+          <div class="card-top">
+            <div class="career-title">AI/ML Engineer</div>
+            <div class="match-meter" aria-hidden="true">
+              <svg viewBox="0 0 36 36" class="c-meter"><path class="c-bg"></path><path class="c-fill" style="stroke-dasharray: 84, 100;"></path></svg>
+              <div class="score">84%</div>
+            </div>
+          </div>
+          <div class="skills">Python • Machine Learning • Mathematics</div>
+          <div class="card-actions">
+            <button class="btn small" data-action="explore-path">Explore Path</button>
+            <button class="expand" aria-expanded="false">Details <i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+          <div class="card-details" hidden>
+            <p>AI/ML engineers design models and pipelines. Focus on Python, linear algebra, and practical ML projects.</p>
+            <div class="tag-list"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">Math</span></div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="career-card" data-score="78" tabindex="0">
+          <div class="card-top">
+            <div class="career-title">Data Analyst</div>
+            <div class="match-meter" aria-hidden="true">
+              <svg viewBox="0 0 36 36" class="c-meter"><path class="c-bg"></path><path class="c-fill" style="stroke-dasharray: 78, 100;"></path></svg>
+              <div class="score">78%</div>
+            </div>
+          </div>
+          <div class="skills">SQL • Excel • Statistics</div>
+          <div class="card-actions">
+            <button class="btn small" data-action="see-skills">See Skills</button>
+            <button class="expand" aria-expanded="false">Details <i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+          <div class="card-details" hidden>
+            <p>Data analysts extract insights from data. Start with SQL, Excel, and basic statistics projects.</p>
+            <div class="tag-list"><span class="tag">SQL</span><span class="tag">Excel</span><span class="tag">Stats</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skill Radar Section -->
+    <section class="skill-radar reveal">
+      <div class="radar-left">
+        <h3>Your skill profile</h3>
+        <canvas id="radarChart" width="400" height="400" aria-label="Skill radar chart"></canvas>
+      </div>
+      <aside class="radar-right">
+        <h3>Your strongest advantage</h3>
+        <div class="advantage">Problem Solving</div>
+        <p class="adv-text">You are good at breaking complex problems into smaller, manageable steps.</p>
+        <div class="recommend">
+          <div class="rec-title">Recommended next step</div>
+          <div class="rec-body">Improve React and frontend system design</div>
+          <button class="btn primary" id="startRecommended">Start Recommended Skill</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Personalized Roadmap -->
+    <section id="roadmap" class="roadmap reveal">
+      <h2 class="section-title">Your 30-day career roadmap</h2>
+      <div class="timeline">
+        <div class="timeline-line" aria-hidden="true"></div>
+        <div class="timeline-step completed" data-week="1">
+          <div class="step-marker">✓</div>
+          <div class="step-body">
+            <div class="step-title">Week 1: Strengthen JavaScript fundamentals</div>
+            <div class="step-actions"><button class="btn small mark-complete" data-week="1" disabled>Completed</button></div>
+          </div>
+        </div>
+
+        <div class="timeline-step active" data-week="2">
+          <div class="step-marker">2</div>
+          <div class="step-body">
+            <div class="step-title">Week 2: Build a responsive React project</div>
+            <div class="step-actions"><button class="btn small mark-complete" data-week="2">Mark as complete</button></div>
+          </div>
+        </div>
+
+        <div class="timeline-step upcoming" data-week="3">
+          <div class="step-marker">3</div>
+          <div class="step-body">
+            <div class="step-title">Week 3: Learn REST APIs and backend basics</div>
+            <div class="step-actions"><button class="btn small mark-complete" data-week="3">Mark as complete</button></div>
+          </div>
+        </div>
+
+        <div class="timeline-step upcoming" data-week="4">
+          <div class="step-marker">4</div>
+          <div class="step-body">
+            <div class="step-title">Week 4: Publish your portfolio project</div>
+            <div class="step-actions"><button class="btn small mark-complete" data-week="4">Mark as complete</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-progress">
+        <div class="progress-label">Progress</div>
+        <div class="progress-bar"><div id="roadmapFill" style="width:25%"></div></div>
+        <div id="roadmapPercent">25%</div>
+      </div>
+    </section>
+
+    <!-- Daily Challenge Widget -->
+    <section class="daily-challenge reveal">
+      <h3>Today's skill challenge</h3>
+      <div class="challenge-card">
+        <div class="challenge-info">
+          <div class="challenge-title">Build a responsive profile card using HTML and CSS</div>
+          <div class="challenge-meta">Difficulty: Beginner • Time: 25 minutes • XP: +50</div>
+        </div>
+        <div class="challenge-actions">
+          <button class="btn primary" id="startChallenge">Start Challenge</button>
+          <button class="btn ghost" id="skipChallenge">Skip for Today</button>
+        </div>
+
+        <div class="challenge-run" id="challengeRun" hidden>
+          <div class="timer" id="challengeTimer">25:00</div>
+          <div class="timer-controls">
+            <button class="btn small" id="pauseTimer">Pause</button>
+            <button class="btn small" id="resetTimer">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating AI Assistant -->
+  <button class="ai-fab" id="openChat" aria-label="Ask Sathi">Ask Sathi</button>
+
+  <div class="chat-panel" id="chatPanel" aria-hidden="true" role="dialog" aria-label="Sathi AI chat">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">Sathi AI</div>
+        <div class="chat-sub">Your personal career companion</div>
+      </div>
+      <button class="close-chat" id="closeChat" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="bot-message">Hi Aarav! What would you like to improve today?</div>
+    </div>
+    <div class="chat-quick">
+      <button class="quick" data-prompt="What career suits me?">What career suits me?</button>
+      <button class="quick" data-prompt="How can I improve my resume?">How can I improve my resume?</button>
+      <button class="quick" data-prompt="What should I learn next?">What should I learn next?</button>
+    </div>
+    <form class="chat-input" id="chatForm">
+      <input type="text" id="chatInput" placeholder="Ask Sathi..." aria-label="Chat input" />
+      <button class="btn primary" type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- Explore Careers Modal -->
+  <div class="modal" id="exploreModal" aria-hidden="true" role="dialog" aria-label="Explore careers">
+    <div class="modal-content">
+      <button class="modal-close" id="closeExplore" aria-label="Close explore">&times;</button>
+      <h3>Explore Careers</h3>
+      <div class="explore-controls">
+        <input type="search" id="careerSearch" placeholder="Search careers..." aria-label="Search careers" />
+        <div class="filters">
+          <button class="filter active" data-cat="all">All</button>
+          <button class="filter" data-cat="technology">Technology</button>
+          <button class="filter" data-cat="design">Design</button>
+          <button class="filter" data-cat="business">Business</button>
+          <button class="filter" data-cat="data">Data</button>
+        </div>
+      </div>
+      <div class="explore-list" id="exploreList" tabindex="0" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- Skill Assessment Modal -->
+  <div class="modal" id="assessmentModal" aria-hidden="true" role="dialog" aria-label="Skill assessment">
+    <div class="modal-content">
+      <button class="modal-close" id="closeAssessment" aria-label="Close assessment">&times;</button>
+      <h3>Skill Assessment</h3>
+      <div class="assessment-step" id="stepContainer">
+        <!-- Steps injected by JS -->
+      </div>
+      <div class="assessment-controls">
+        <button class="btn ghost" id="prevStep" disabled>Back</button>
+        <button class="btn primary" id="nextStep">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" aria-live="polite" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="logo-small">Skill Sathi</div>
+      <div class="tagline">Helping students turn skills into meaningful careers.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#" class="f-link">About</a>
+      <a href="#" class="f-link">Contact</a>
+      <a href="#" class="f-link">Privacy</a>
+    </div>
+    <div class="socials">
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+    </div>
+    <div class="copyright">© <span id="year"></span> Skill Sathi</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
