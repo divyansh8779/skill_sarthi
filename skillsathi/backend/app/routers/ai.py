@@ -1,5 +1,5 @@
 # backend/app/routers/ai.py
-from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException
+from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, Response
 from ..schemas import AIChatRequest
 from ..services.ai_service import call_hf_chat
 from ..services.stt_tts_service import transcribe_audio_bytes, synthesize_text_to_audio
@@ -9,6 +9,7 @@ import io
 router = APIRouter(prefix="/ai", tags=["ai"])
 
 @router.post("/chat")
+
 def chat(req: AIChatRequest):
     # Basic prompt engineering: include context and scheme knowledge (RAG stub)
     prompt = req.message

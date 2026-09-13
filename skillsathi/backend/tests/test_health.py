@@ -1,6 +1,6 @@
 # backend/tests/test_health.py
 from fastapi.testclient import TestClient
-from project.skill_sarthi.skillsathi.backend.app.main import app
+from app.main import app
 
 client = TestClient(app)
 

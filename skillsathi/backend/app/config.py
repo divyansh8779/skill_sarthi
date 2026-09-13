@@ -2,7 +2,7 @@
 from pydantic import BaseSettings
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@db:5432/skillsathi"
+    DATABASE_URL: str = "sqlite:///./skillsathi.db"
     JWT_SECRET: str = "change-me-in-prod"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
